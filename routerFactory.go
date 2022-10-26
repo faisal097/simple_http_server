@@ -18,12 +18,12 @@ func NewRouter(routerType string) (Router, error) {
 		r := &MuxRouter{
 			once: &sync.Once{},
 			apis: &Server{},
-		} 
+		}
 
-		r.New() 
+		r.New()
 		r.Init()
 
 		return r, nil
 	}
-	return nil, fmt.Errorf("Router Type unsupported: %s\n", routerType)
+	return nil, fmt.Errorf("Router Type unsupported: %s", routerType)
 }
