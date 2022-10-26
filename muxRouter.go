@@ -1,6 +1,7 @@
 package simple_http_server
 
 import (
+	"log"
 	"net/http"
 	"sync"
 
@@ -17,7 +18,6 @@ func (m *MuxRouter) New() {
 	m.once.Do(func() {
 		m.mux = mux.NewRouter()
 	})
-	return
 }
 
 func (m *MuxRouter) Init() {
@@ -26,10 +26,11 @@ func (m *MuxRouter) Init() {
 	})
 }
 
-func (m *MuxRouter) Start(Addr string) error {
+func (m *MuxRouter) Start(addr string) error {
 	srv := &http.Server{
 		Handler: m.mux,
-		Addr:    Addr,
+		Addr:    addr,
 	}
+	log.Println("Http server started listening at ", addr)
 	return srv.ListenAndServe()
 }

@@ -1,9 +1,21 @@
 package main
 
-import(
+import (
 	"log"
+	"os"
+
 	hs "github.com/faisal097/simple_http_server"
 )
+
+var (
+	ADDR = "127.0.0.1:8000"
+)
+
+func init() {
+	if addr := os.Getenv("ADDR"); addr != "" {
+		ADDR = addr
+	}
+}
 
 func main() {
 	defer func() {
@@ -14,5 +26,5 @@ func main() {
 		log.Println("Error: ", err)
 		return
 	}
-	log.Println(r.Start("127.0.0.1:8000"))
+	log.Println(r.Start(ADDR))
 }
