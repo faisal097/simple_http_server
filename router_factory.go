@@ -7,7 +7,7 @@ import (
 
 type Router interface {
 	New()
-	Init()
+	AddRoutes()
 	Start(Addr string) error
 }
 
@@ -21,7 +21,7 @@ func NewRouter(routerType string) (Router, error) {
 		}
 
 		r.New()
-		r.Init()
+		r.AddRoutes()
 
 		return r, nil
 	}

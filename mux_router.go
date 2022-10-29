@@ -20,12 +20,6 @@ func (m *MuxRouter) New() {
 	})
 }
 
-func (m *MuxRouter) Init() {
-	m.mux.HandleFunc("/get", func(w http.ResponseWriter, r *http.Request) {
-		m.apis.Get(w, r)
-	})
-}
-
 func (m *MuxRouter) Start(addr string) error {
 	srv := &http.Server{
 		Handler: m.mux,
@@ -33,4 +27,10 @@ func (m *MuxRouter) Start(addr string) error {
 	}
 	log.Println("Http server started listening at ", addr)
 	return srv.ListenAndServe()
+}
+
+func (m *MuxRouter) AddRoutes() {
+	m.mux.HandleFunc("/get", func(w http.ResponseWriter, r *http.Request) {
+		get_handler(m.apis, w, r)
+	})
 }
